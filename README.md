@@ -1,8 +1,9 @@
 # zoomproj
 
 To start
-1 Install packages
-2 npm start
+1 cd my-app
+2 npm install
+3 npm start
 
 In progress
 A few CSS issues to address
