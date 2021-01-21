@@ -1,30 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Icon, Pagination } from 'semantic-ui-react'
+import React, { useState } from 'react'
+import { Button, Icon } from 'semantic-ui-react'
 import { displayed } from '../data/displayedParticipants'
 import { useRecoilState } from 'recoil'
 import { Container, Draggable } from 'react-smooth-dnd';
 
 import { selected as selectedp } from '../data/selected'
-import { render } from 'react-dom';
 
 export const ParticipantList = () => {
-
-    const numberInList = 20;
-    const [page, setPage] = useState([0, numberInList]);
     const [selected, setSelected] = useRecoilState(selectedp);
     const [participantsData, setparticipantsData] = useRecoilState(displayed);
     const [showSelected, setShowSelected] = useState(false);
 
-    useEffect(() => {
-        console.log('page:', page)
-    }, [page]);
-
-    useEffect(() => {
-        console.log('page:', selected)
-    }, [selected]);
-
-    const select = (name) => {
-        console.log('this is clicked', name)
+    const select = (name) => { //select individuals from list
         if ((selected.filter(item => item.id === name.id)).length < 1) {
             setSelected([...selected, name])
         }
@@ -33,10 +20,10 @@ export const ParticipantList = () => {
         }
     }
 
-    const reorderSelection = (event) => {
+    const reorderSelection = (event) => { //reorder selection on drag
         let copy = [...selected]
         copy.splice(event.removedIndex, 1); //remove one item where we pick element from
-        copy.splice(event.addedIndex, 0, selected[event.removedIndex]); //add item where
+        copy.splice(event.addedIndex, 0, selected[event.removedIndex]); //add removed item to new position
         setSelected(copy)
     }
 
@@ -76,10 +63,11 @@ export const ParticipantList = () => {
                         <div className='left'>
                             <Icon name='edit' />
                             {person.title}
-                        </div>
+                        </div> 
                         <div className='right'>
                             <Icon color={person.icon} name='wifi' />
                             <Icon name='mute' />
+                            
                         </div>
                     </div>
                 </Button>)}
@@ -94,9 +82,13 @@ export const ParticipantList = () => {
             setShowSelected(true)
         }
     }
+    const clearSelected = () => {
+        setSelected([])
+      }
     return (
         <>
             <Button onClick={() => show()}>{showSelected ? 'Show All' : 'Show Selected'}</Button>
+            {selected.length>0 ? <Button color='red' onClick={() => clearSelected()}>Clear Selection</Button> : <></>}
             { showSelected ? <Selected /> : <Selector />}
         </>)
 }

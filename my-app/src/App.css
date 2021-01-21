@@ -1,3 +1,7 @@
+
+
+Button{padding:5px;}
+
 div.ui.column.grid{
   margin:5px !important;
   width: 45vw !important;
@@ -25,6 +29,7 @@ div.ui.column.grid{
   border: 1px solid black;
   padding:0px !important;
   width:100%; 
+  
 }
 
 .container{width: 100% !important;}
@@ -42,16 +47,15 @@ div.ui.column.grid{
   width: 30%;
   border:1px solid black;
   float: right;
-  height:40vw;
+  height:43vw;
+  margin: 5px;
 }
 .Participants {
   border:1px solid black;
   margin:5px;
   padding:5px;
   overflow-y: scroll;
-  height:37vw;
-
-
+  height:39vw;
 }
 
 .Header{
@@ -63,7 +67,7 @@ div.ui.column.grid{
   padding: 5px;
 }
 
-.searchBar {
+.SearchBar {
   padding:5px;
 }
 

@@ -6,12 +6,12 @@ function App() {
     <div className="App">
       <Head></Head>
       <Preview></Preview>
-      <div className="ParticipantContainer">
-      <SearchBar></SearchBar>
 
-      <div className="Participants">
-        <ParticipantList></ParticipantList>
-      </div>
+      <div className="ParticipantContainer">
+        <SearchBar></SearchBar>
+        <div className="Participants">
+          <ParticipantList></ParticipantList>
+        </div>
       </div>
     </div>
   );

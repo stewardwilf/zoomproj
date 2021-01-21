@@ -22,7 +22,7 @@ export const SearchBar = () => {
   }
   return (
     <div>
-      <Input placeholder='Filter...' onChange={e => handleChange(e)}/>
+      <Input className='SearchBar' placeholder='Filter...' onChange={e => handleChange(e)}/>
     </div>
 
   )
