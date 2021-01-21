@@ -8,7 +8,7 @@ import { selected as selectedp } from '../data/selected'
 
 export const ParticipantList = () => {
     const [selected, setSelected] = useRecoilState(selectedp);
-    const [participantsData, setparticipantsData] = useRecoilState(displayed);
+    const [participantsData] = useRecoilState(displayed);
     const [showSelected, setShowSelected] = useState(false);
 
     const select = (name) => { //select individuals from list

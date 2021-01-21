@@ -1,5 +1,5 @@
 import './App.css';
-import { Foot, Head, SearchBar, ParticipantList, Preview } from './components/index'
+import { Head, SearchBar, ParticipantList, Preview } from './components/index'
 
 function App() {
   return (

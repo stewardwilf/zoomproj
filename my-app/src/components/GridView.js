@@ -8,10 +8,9 @@ export const GridView = () => {
   const [wh, setwh] = useState({ 'w': "0", 'h': "0" });;
 
   useEffect(() => { // recalculate number of rows/ columns when selections change
-    let w = Math.ceil(Math.sqrt(selectedState.length))
-    let h = Math.ceil(selectedState.length / w) ? Math.ceil(selectedState.length / w) : 0
-    setwh({ 'w': w.toString(), 'h': h.toString() })
-
+    let w = (Math.ceil(Math.sqrt(selectedState.length))).toString()
+    let h = (Math.ceil(selectedState.length / w) ? Math.ceil(selectedState.length / w) : 0).toString()
+    setwh({ 'w': w, 'h': h })
   }, [selectedState]);
 
   const removeFromState = (obj) => { //filter out removed item
@@ -20,10 +19,10 @@ export const GridView = () => {
 
   return (
     <>
-      <Grid columns={wh.w}>
+      <Grid columns={wh.w ? wh.w : "0"}>
         {selectedState.map((sel) =>
           <>
-            <Grid.Column padded={false} key={sel.id}>
+            <Grid.Column padded="false" key={sel.id}>
               <Button icon className='right' onClick={() => removeFromState(sel)}>
                 <Icon name='close' />
               </Button>
