@@ -1,4 +1,6 @@
-export const participantsData = [
+import {ParticipantsData} from '../types/types'
+
+export const participantsData:ParticipantsData[] = [
     {
         'id': 0,
         "title": "User One",

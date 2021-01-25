@@ -1,26 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Icon } from 'semantic-ui-react'
 import { displayed } from '../data/displayedParticipants'
 import { useRecoilState } from 'recoil'
 import { Container, Draggable } from 'react-smooth-dnd';
-
 import { selected as selectedp } from '../data/selected'
+import {ParticipantsData} from '../types/types'
 
 export const ParticipantList = () => {
-    const [selected, setSelected] = useRecoilState(selectedp);
+    const [selected, setSelected] = useRecoilState<ParticipantsData[]>(selectedp);
     const [participantsData] = useRecoilState(displayed);
     const [showSelected, setShowSelected] = useState(false);
 
-    const select = (name) => { //select individuals from list
-        if ((selected.filter(item => item.id === name.id)).length < 1) {
-            setSelected([...selected, name])
+    useEffect(() => { //Remove default recoil value - do this in a cleaner way
+      setSelected([])
+     }, []);
+
+    const select = (name: ParticipantsData) => { //select individuals from list
+        if ((selected.filter((item:ParticipantsData) => item.id === name.id)).length < 1) {
+            setSelected([...selected,name])
         }
         else {
-            setSelected(selected.filter(item => item.id !== name.id))
+            setSelected(selected.filter((item:ParticipantsData) => item.id !== name.id))
         }
     }
 
-    const reorderSelection = (event) => { //reorder selection on drag
+    const reorderSelection = (event: any) => { //reorder selection on drag
         let copy = [...selected]
         copy.splice(event.removedIndex, 1); //remove one item where we pick element from
         copy.splice(event.addedIndex, 0, selected[event.removedIndex]); //add removed item to new position
@@ -31,7 +35,7 @@ export const ParticipantList = () => {
         return (
             <Button.Group fluid basic vertical className='ParticipantButtons'>
                 <Container dragHandleSelector=".column-drag-handle" onDrop={e => reorderSelection(e)}>
-                    {selected.map(p => {
+                    {selected.map((p:ParticipantsData) => {
                         return (
                             <Draggable key={p.id}>
                                 <Button className="draggable-item" active={true}>
@@ -57,8 +61,13 @@ export const ParticipantList = () => {
 
     const Selector = () => {
         return (<Button.Group fluid basic vertical className='ParticipantButtons'>
-            {participantsData.map((person) =>
-                <Button className={selected.filter(item => item.id === person.id) != 0 ? 'active' : ''} key={person.id} onClick={() => { select(person) }} active={person.id === selected?.person?.id ? true : false}>
+            {participantsData.map((person:ParticipantsData) =>
+                <Button 
+                //className={selected.filter((item:ParticipantsData) => item.id === person.id) !== 0 ? 'active' : ''} 
+                key={person.id} 
+                onClick={() => { select(person) }} 
+                active={selected.filter((item: ParticipantsData)=> item.id === person.id).length !=0 ? true : false}
+                >
                     <div>
                         <div className='left'>
                             <Icon name='edit' />
